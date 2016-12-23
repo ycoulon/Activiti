@@ -11,7 +11,7 @@ MAINTAINER Frank Wang "eternnoir@gmail.com"
 EXPOSE 8080
 
 ENV TOMCAT_VERSION 8.0.38
-ENV ACTIVITI_VERSION 5.21.0
+ENV ACTIVITI_VERSION 6.0.0.Beta4
 ENV MYSQL_CONNECTOR_JAVA_VERSION 5.1.40
 
 # Tomcat
@@ -25,7 +25,7 @@ RUN wget http://archive.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/a
 # To install jar files first we need to deploy war files manually
 RUN wget https://github.com/Activiti/Activiti/releases/download/activiti-${ACTIVITI_VERSION}/activiti-${ACTIVITI_VERSION}.zip -O /tmp/activiti.zip && \
  	unzip /tmp/activiti.zip -d /opt/activiti && \
-	unzip /opt/activiti/activiti-${ACTIVITI_VERSION}/wars/activiti-explorer.war -d /opt/tomcat/webapps/activiti-explorer && \
+	unzip /opt/activiti/activiti-${ACTIVITI_VERSION}/wars/activiti-app.war -d /opt/tomcat/webapps/activiti-app && \
 	unzip /opt/activiti/activiti-${ACTIVITI_VERSION}/wars/activiti-rest.war -d /opt/tomcat/webapps/activiti-rest && \
 	rm -f /tmp/activiti.zip
 
@@ -33,7 +33,7 @@ RUN wget https://github.com/Activiti/Activiti/releases/download/activiti-${ACTIV
 RUN wget http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VERSION}.zip -O /tmp/mysql-connector-java.zip && \
 	unzip /tmp/mysql-connector-java.zip -d /tmp && \
 	cp /tmp/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VERSION}-bin.jar /opt/tomcat/webapps/activiti-rest/WEB-INF/lib/ && \
-	cp /tmp/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VERSION}-bin.jar /opt/tomcat/webapps/activiti-explorer/WEB-INF/lib/ && \
+	cp /tmp/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VERSION}-bin.jar /opt/tomcat/webapps/activiti-app/WEB-INF/lib/ && \
 	rm -rf /tmp/mysql-connector-java.zip /tmp/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VERSION}
 
 # Add roles
